@@ -1,0 +1,15 @@
+[data-aos="custom-fade-in"] {
+  opacity: 0;
+  transition-property: opacity;
+  &.aos-animate {
+    opacity: 1;
+  }
+}
+
+[data-aos="custom-height"] {
+  height: 0;
+  transition-property: height;
+  &.aos-animate {
+      height: 100%;
+  }
+}
