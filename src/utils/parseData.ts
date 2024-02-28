@@ -4,55 +4,64 @@ export const parseEvents = (data: any) => {
   const { records } = data;
 
   let todayEvents: any[] = [];
-  let weekDaysEvents: { [key: string]: { item: any[] } } = {};
+  let weekDaysEvents: { [key: string]: any[] } = {};
 
   records.forEach((record: any) => {
     if (record.fields && Object.keys(record.fields).length > 0) {
       const eventDate = moment(record.fields.Fecha);
       const today = moment();
-
       const dayOfWeek = eventDate.format('dddd').toLowerCase(); // "monday", "tuesday", ...
-      const dateKey = eventDate.format("YYYY-MM-DD"); // Formato "mes-dia"
-
+      const monthDayYear = eventDate.format("MM-DD-YYYY"); // "MM-DD-YYYY"
       const startTime = record.fields['Hora Inicio'];
 
-      // Agregar al array de eventos de hoy si corresponde
       if (eventDate.isSame(today, 'day')) {
         todayEvents.push(record);
       }
 
-      // Inicializar el día de la semana si aún no existe
-      if (!weekDaysEvents[dayOfWeek]) {
-        weekDaysEvents[dayOfWeek] = { item: [] };
+      if (!weekDaysEvents[dayOfWeek]) weekDaysEvents[dayOfWeek] = [];
+      const dateEventKey = `${monthDayYear}`;
+      let dayEvents = weekDaysEvents[dayOfWeek].find(item => item.date === dateEventKey);
+      if (!dayEvents) {
+        dayEvents = { date: dateEventKey, events: {} };
+        weekDaysEvents[dayOfWeek].push(dayEvents);
       }
-
-      // Buscar si ya existe un 'item' para esta fecha
-      let itemIndex = weekDaysEvents[dayOfWeek].item.findIndex(item => item.date === dateKey);
-
-      if (itemIndex === -1) {
-        // Si no existe, crear un nuevo 'item'
-        weekDaysEvents[dayOfWeek].item.push({
-          date: dateKey,
-          events: {}
-        });
-        itemIndex = weekDaysEvents[dayOfWeek].item.length - 1; // El índice del nuevo 'item' creado
-      }
-
-      // Inicializar el grupo de horas dentro de los eventos si aún no existe
-      if (!weekDaysEvents[dayOfWeek].item[itemIndex].events[startTime]) {
-        weekDaysEvents[dayOfWeek].item[itemIndex].events[startTime] = [];
-      }
-
-      // Agregar el evento al grupo de horas correspondiente
-      weekDaysEvents[dayOfWeek].item[itemIndex].events[startTime].push(record);
+      if (!dayEvents.events[startTime]) dayEvents.events[startTime] = [];
+      dayEvents.events[startTime].push(record);
     }
   });
 
-  // Objeto final
-  const parsedData = {
-    today: todayEvents,
-    days: weekDaysEvents
-  };
+  // Ordenar los días de la semana según su orden natural y los items dentro de cada día por fecha
+  Object.keys(weekDaysEvents).forEach(day => {
+    weekDaysEvents[day].sort((a, b) => moment(a.date, "MM-DD-YYYY").diff(moment(b.date, "MM-DD-YYYY")));
+  });
 
-  return parsedData;
+  const orderedWeekDaysEvents = Object.keys(weekDaysEvents).sort((a, b) => 
+    moment().day(a).day() - moment().day(b).day()
+  ).reduce((obj: any, key: any) => {
+    obj[key] = weekDaysEvents[key];
+    return obj;
+  }, {});
+
+  return {
+    today: todayEvents,
+    days: orderedWeekDaysEvents,
+  };
+};
+
+export const prepareDaysForRendering = (days:any) => {
+  return Object.entries(days).map(([day, events]:any) => ({
+    day,
+    events: Object.entries(events).map(([monthDayYear, details]:any) => {
+      const correctDate = details.date; 
+      const hours = details.events ? Object.entries(details.events).map(([hour, events]) => ({
+        hour,
+        events
+      })) : [];
+
+      return {
+        date: correctDate,
+        hours
+      };
+    })
+  }));
 };

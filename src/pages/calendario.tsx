@@ -1,11 +1,11 @@
 import { dehydrate } from "react-query/hydration"
 import {queryClient } from "@/utils"
 import { fetchData } from "./api/data"
-import { TodayComponents } from "@/components"
+import { CalendarComponents, TodayComponents } from "@/components"
 
 export default function Calendario({ page }: any) {
   return (
-    <TodayComponents/>
+    <CalendarComponents/>
   )
 }
 

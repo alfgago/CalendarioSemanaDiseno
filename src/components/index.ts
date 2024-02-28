@@ -3,5 +3,6 @@ export * from './meta'
 
 //Page blocks
 export * from './pages/today';
+export * from './pages/calendar';
 
 export * from './time';

@@ -19,7 +19,9 @@ export const Time = ({ eventTime }: any) => {
       </div>
       <div className="day-month">
         <h3>
-          {data.dayOfMonth}.{data.monthNumber} 
+          {
+            (!eventTime ? ( `${data.dayOfMonth} . ${data.monthNumber}` )  : data.dayOfMonth)
+          }
         </h3>
       </div>
       <div className="month">
