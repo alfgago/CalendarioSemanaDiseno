@@ -2,8 +2,6 @@ import { Time } from ".."
 import { EventStyles } from "./EventStyles"
 
 export const Event = ({ date, group }: any) => {
-  
-  console.log(group)
 
   return (
     <EventStyles>

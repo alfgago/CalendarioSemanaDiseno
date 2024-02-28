@@ -1,8 +1,10 @@
 import React from "react"
 import { TaskStyles } from "./TaskStyle"
 import Image from "next/image"
+import { Exhibitors, Location } from ".."
 
 export const Task = ({ data }: any) => {
+  
   const { fields } = data
 
   return (
@@ -12,11 +14,13 @@ export const Task = ({ data }: any) => {
           <div className="title">
             <h2>{fields.Title}</h2>
           </div>
-          <div className="exhibitors"></div>
+          <div className="exhibitors">
+            <Exhibitors id={fields.Expositores}/>
+          </div>
         </div>
         <div className="info">
           <div className="address">
-            <span>{fields.Ubicación}</span>
+            <Location id={fields["Ubicación"]}/>
           </div>
           <div className="time">
             <span>{fields["Hora Inicio"]}</span>

@@ -11,7 +11,7 @@ import { queryClient } from '@/utils';
 import '@/styles/fonts/stylesheet.css';
 import '@/styles/styles.scss';
 import 'aos/dist/aos.css';
-
+ 
 import { Layout, Meta } from '@/components';
 import AOS from 'aos';
 import { fetchData } from './api/data';

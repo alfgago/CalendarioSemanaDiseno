@@ -13,7 +13,7 @@ export const CalendarStyles = styled.section`
   .days-wrapper,
   .day {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
     gap: 1.5rem;
     width: 100%;
   }

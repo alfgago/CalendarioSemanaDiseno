@@ -15,3 +15,10 @@ export const fetchData = async (slug: string, staleTime?: number) => {
 
   return queryClient.getQueryData(['data', slug]);
 };
+
+
+export const fetchClientData = async (slug: string) => {
+  const response = await API.get(`/${slug}`);
+  console.log('request layout data:', slug);
+  return response.data;
+};
