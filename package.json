@@ -20,6 +20,7 @@
     "react-dom": "^18",
     "react-query": "^3.39.3",
     "react-svg": "^16.1.33",
+    "react-tooltip": "^5.26.3",
     "sass": "^1.71.1",
     "styled-components": "^6.1.8",
     "svg": "^0.1.0"
