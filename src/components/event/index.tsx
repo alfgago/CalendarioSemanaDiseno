@@ -19,7 +19,7 @@ export const Event = ({ date, group, day }: any) => {
                 </span>
               </div>
               {events.map(({ fields}:any, index:any) => (
-                <div data-aos="fade-up" data-aos-delay={ 200 + (50 * index) }  key={index} className="chip">
+                <div key={index} className="chip">
                   <p>
                     {fields.Title}
                   </p>
