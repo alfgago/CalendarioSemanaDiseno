@@ -57,5 +57,12 @@ export const TodayStyles = styled.section`
     flex-wrap: wrap;
     gap: 1.5rem;
     padding: 0 0.5rem;
+    width: 100%;
+    .wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
   }
 `
