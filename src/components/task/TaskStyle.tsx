@@ -4,6 +4,7 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const TaskStyles = styled.section`
   border: 0.5px solid #000; 
+  width: 100%;
   .task {
     padding: 1rem 1.06rem 1.06rem 1rem;
 
