@@ -1,17 +1,23 @@
 import { Time } from "@/components"
 import { TodayStyles } from "./TodayStyles"
 import { Task } from "@/components/task"
+import { useEffect, useState } from "react"
 
-export const TodayComponents = ({ data, date = null }: any) => {
+export const TodayComponents = ({
+  data,
+  date = null,
+  nextDate = null,
+}: any) => {
   return (
     <TodayStyles>
       <div className="current-day">
         <div className="time">
-          <Time eventTime={date} />
+          {nextDate && <span>Proxima fecha:</span>}
+          <Time eventTime={date || nextDate} />
         </div>
         <div className="upcoming-events">
           {data.slice(0, 2).map(({ fields }: any, index: any) => (
-            <div key={index} className="upcoming-item">
+            <div key={index} className="upcoming-item" data-aos="fade-up" data-aos-delay={ 200 + (50 * index) } >
               <strong> {fields["Hora Inicio"]} </strong>
               <span>{fields["Title"]} </span>
             </div>
@@ -25,7 +31,7 @@ export const TodayComponents = ({ data, date = null }: any) => {
         <div className="task-wrapper">
           {data.map((item: any, index: any) => (
             <div key={index} className="wrapper" data-aos="custom-fade-in">
-              <Task  data={item} />
+              <Task data={item} />
             </div>
           ))}
         </div>

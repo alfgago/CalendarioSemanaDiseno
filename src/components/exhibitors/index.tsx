@@ -17,6 +17,7 @@ export const Exhibitors = ({ id }: any) => {
     fetchExhibitors
   )
 
+
   return (
     <ExhibitorsStyles>
       {data &&
@@ -29,9 +30,9 @@ export const Exhibitors = ({ id }: any) => {
               data-tooltip-content={fields.Nombre}
             >
               <Image
-                src={fields.Foto[0].url}
-                width={fields.Foto[0].width}
-                height={fields.Foto[0].height}
+                src={fields.Foto && fields.Foto.length > 0 ? fields.Foto[0].url : DEFAULT_IMAGE.src}
+                width={fields.Foto && fields.Foto.length > 0 ? fields.Foto[0].width : DEFAULT_IMAGE.width}
+                height={fields.Foto && fields.Foto.length > 0 ? fields.Foto[0].height : DEFAULT_IMAGE.height}
                 alt="Exhibitor"
               />
             </div>
@@ -41,3 +42,9 @@ export const Exhibitors = ({ id }: any) => {
     </ExhibitorsStyles>
   )
 }
+
+const DEFAULT_IMAGE = {
+  src: "/user-default.png", 
+  width: 32, 
+  height: 32, 
+};

@@ -10,10 +10,10 @@ import "swiper/css/pagination"
 import 'swiper/css/navigation'; 
 
 import { Pagination, Controller, Navigation } from "swiper/modules"
-import moment from "moment"
 
 export const CalendarComponents = () => {
   const { days } = useContext(contextData) as any
+
   const parseData = prepareDaysForRendering(days)
 
   const [swiperInstance, setSwiperInstance] = useState(null)
@@ -53,7 +53,6 @@ export const CalendarComponents = () => {
           loop={true}
           modules={[Controller, Navigation]} 
           navigation={true} 
-          allowTouchMove={false} 
         >
           {parseData.map(({ day }, index) => (
             <SwiperSlide key={index}>
@@ -94,13 +93,13 @@ export const CalendarComponents = () => {
 
 const dayShortName = (dayName: string): string => {
   const daysMap: { [key: string]: string } = {
-    lunes: 'Lun.',
-    martes: 'Mar.',
-    miércoles: 'Mié.',
-    jueves: 'Jue.',
-    viernes: 'Vie.',
-    sábado: 'Sáb.',
-    domingo: 'Dom.'
+    lunes: 'Lun',
+    martes: 'Mar',
+    miércoles: 'Mié',
+    jueves: 'Jue',
+    viernes: 'Vie',
+    sábado: 'Sáb',
+    domingo: 'Dom'
   };
   return daysMap[dayName.toLowerCase()] || dayName;
 };

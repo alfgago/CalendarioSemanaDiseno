@@ -6,6 +6,7 @@ export const TaskStyles = styled.section`
   border: 0.5px solid #000; 
   .task {
     padding: 1rem 1.06rem 1.06rem 1rem;
+
     .data{
       display:flex;
       padding-bottom: 1rem;
@@ -31,6 +32,14 @@ export const TaskStyles = styled.section`
         font-size: 0.875rem;
         font-weight: 300;
       } 
+      .address {
+        width: 75%;
+      }
+      .time {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+      }
     }
   }
   .cover {

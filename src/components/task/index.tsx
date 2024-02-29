@@ -1,5 +1,3 @@
-//@ts-ignore
-
 import { useState } from "react"
 import { TaskStyles } from "./TaskStyle"
 import Image from "next/image"
@@ -40,7 +38,7 @@ export const Task = ({ data }: any) => {
     <TaskStyles>
       <div className="task">
         <div className="data">
-          <div className="title">
+          <div data-aos="custom-fade-in" data-aos-delay="200" className="title">
             <h2>{fields.Title}</h2>
           </div>
           <div className="exhibitors">
@@ -48,20 +46,21 @@ export const Task = ({ data }: any) => {
           </div>
         </div>
         <div className="info">
-          <div className="address">
+          <div className="address" data-aos="fade-up" data-aos-delay="200">
             <Location id={fields["Ubicación"]} setLocationData={setLocationData} />
           </div>
-          <div className="time">
+          <div className="time" data-aos="fade-up" data-aos-delay="200">
             <span>{fields["Hora Inicio"]}</span>
           </div>
         </div>
-      </div>
+      </div> 
       <div className="cover">
         <Image
           alt="cover"
           src={fields.Imagen[0].url}
           width={359}
           height={239}
+          priority={true} 
         />
         <div className="wrapper-add-to-cal">
           <button onClick={handleDownload}>
