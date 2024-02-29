@@ -1,12 +1,15 @@
 import { dehydrate } from "react-query/hydration"
 import {queryClient } from "@/utils"
-import { fetchData } from "./api/data"
 import { TodayComponents } from "@/components"
-import { parseEvents } from "@/utils/parseData"
+import { useContext } from "react"
+import { contextData } from "@/context/context"
 
-export default function Home({}: any) {
+export default function Home() {
+  
+  const { today } = useContext(contextData) as any
+
   return (
-    <TodayComponents/>
+    <TodayComponents data={today}/>
   )
 }
 

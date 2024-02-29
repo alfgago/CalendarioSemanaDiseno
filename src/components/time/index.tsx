@@ -20,7 +20,7 @@ export const Time = ({ eventTime }: any) => {
       <div className="day-month">
         <h3>
           {
-            (!eventTime ? ( `${data.dayOfMonth}.${data.monthNumber}` )  : data.dayOfMonth)
+            data.dayOfMonth
           }
         </h3>
       </div>

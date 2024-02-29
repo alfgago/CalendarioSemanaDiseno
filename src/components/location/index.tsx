@@ -1,8 +1,9 @@
 import { fetchData } from "@/pages/api/data"
 import { useQuery } from "react-query"
 import { LocationStyles } from "./LocationStyles"
+import { get } from "http"
 
-export const Location = ({ id }: any) => {
+export const Location = ({ id, setLocationData }: any) => {
   const fetchLocation = () => {
     const ids = Array.isArray(id) ? id : [id]
     return Promise.all(
@@ -13,6 +14,10 @@ export const Location = ({ id }: any) => {
   const { data, isLoading, error } = useQuery(["location", `Expositores/${id}`], fetchLocation)
 
   if (isLoading) return <div>Loading...</div>;
+
+  if (!isLoading) {
+    setLocationData(data);
+  }
 
   return (
     <LocationStyles>

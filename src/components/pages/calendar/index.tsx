@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { contextData } from "@/context/context"
 import { CalendarStyles } from "./CalendarStyles"
 import { prepareDaysForRendering } from "@/utils/parseData"
@@ -7,9 +7,10 @@ import { Swiper, SwiperSlide } from "swiper/react"
 
 import "swiper/css"
 import "swiper/css/pagination"
-import 'swiper/css/navigation'; // Asegúrate de importar el CSS para Navigation
+import 'swiper/css/navigation'; 
 
 import { Pagination, Controller, Navigation } from "swiper/modules"
+import moment from "moment"
 
 export const CalendarComponents = () => {
   const { days } = useContext(contextData) as any
@@ -50,13 +51,16 @@ export const CalendarComponents = () => {
           controller={{ control: swiperInstance }}
           slidesPerView={3}
           loop={true}
-          centeredSlides={true}
           modules={[Controller, Navigation]} 
           navigation={true} 
           allowTouchMove={false} 
         >
           {parseData.map(({ day }, index) => (
-            <SwiperSlide key={index}>{day}</SwiperSlide>
+            <SwiperSlide key={index}>
+              <div className="day-selector-item">
+                {dayShortName(day)}
+              </div>
+            </SwiperSlide>
           ))}
         </Swiper>
       </div>
@@ -70,7 +74,6 @@ export const CalendarComponents = () => {
           spaceBetween={30}
           loop={true}
           modules={[Pagination, Controller]}
-          className="mySwiper"
           style={{ height: "calc(100vh - 10rem)" }}
           onSlideChange={() => console.log("slide change")}
         >
@@ -78,7 +81,7 @@ export const CalendarComponents = () => {
             <SwiperSlide key={dayIndex}>
               <div id={day} className="day">
                 {events.map(({ date, hours }, index) => (
-                  <Event key={index} date={date} group={hours} />
+                  <Event key={index} date={date} day={day} group={hours} />
                 ))}
               </div>
             </SwiperSlide>
@@ -88,3 +91,16 @@ export const CalendarComponents = () => {
     </CalendarStyles>
   )
 }
+
+const dayShortName = (dayName: string): string => {
+  const daysMap: { [key: string]: string } = {
+    lunes: 'Lun.',
+    martes: 'Mar.',
+    miércoles: 'Mié.',
+    jueves: 'Jue.',
+    viernes: 'Vie.',
+    sábado: 'Sáb.',
+    domingo: 'Dom.'
+  };
+  return daysMap[dayName.toLowerCase()] || dayName;
+};

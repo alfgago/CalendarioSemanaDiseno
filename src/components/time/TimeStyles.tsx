@@ -10,8 +10,14 @@ export const TimeStyles = styled.div`
   .day-month {
     padding: 1rem 0 1.75rem;
   }
+  
+  width: 6.5rem;
+
   .month {
     text-transform: uppercase;
+  }
+  p {
+    text-transform: capitalize;
   }
 `
 

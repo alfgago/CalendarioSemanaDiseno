@@ -8,12 +8,33 @@ export const CalendarStyles = styled.section`
     height: 4.5rem;
     display: flex;
     align-items: center;
-    padding-bottom: 1rem
+    padding-bottom: 1rem;
+    border-top: 0.5px solid #000;
+    padding-top: 1rem;
   }
   .day {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     gap: 1.5rem;
     width: 100%;
+  }
+  .swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-vertical {
+    display: none;
+  }
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 0.6rem;
+    color: black;
+  }
+  .day-selector-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .swiper-button-next {
+    right: 7rem;
+  }
+  .swiper-button-prev {
+    left: 7rem;
   }
 `

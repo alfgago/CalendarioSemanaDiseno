@@ -34,6 +34,28 @@ export const TaskStyles = styled.section`
     }
   }
   .cover {
+    position:relative;
+    .wrapper-add-to-cal {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      button {
+        background: 0;
+        cursor:pointer;
+        border: solid 0.5px #000;
+        border-radius: 3rem;
+        height: 2rem;
+        width: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        svg {
+          width: 1rem;
+          height: 1rem;
+          display: block;
+        }
+      }
+    }
     img {
       display: block;
       width: 100%;

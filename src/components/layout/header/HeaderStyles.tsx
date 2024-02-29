@@ -4,9 +4,15 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const HeaderStyles = styled.header`
   display: flex;
-  padding: 2.19rem 0.5rem 1rem;
+  padding: 2.19rem 0.5rem 1.5rem;
   height: 5.5rem;
   align-items: center;
+  position: fixed;
+  top: 0;
+  max-width: 23.4375rem;
+  width: 100%;
+  z-index: 1000;
+  background: #ffff;
   .header-wrapper {
     display: flex;
     gap: 1.47rem;

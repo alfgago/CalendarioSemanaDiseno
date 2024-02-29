@@ -1,20 +1,16 @@
 import { Time } from "@/components"
 import { TodayStyles } from "./TodayStyles"
-import { useContext } from "react"
-import { contextData } from "@/context/context"
 import { Task } from "@/components/task"
 
-export const TodayComponents = () => {
-  const { today } = useContext(contextData) as any
-
+export const TodayComponents = ({ data, date = null }: any) => {
   return (
     <TodayStyles>
       <div className="current-day">
         <div className="time">
-          <Time />
+          <Time eventTime={date} />
         </div>
         <div className="upcoming-events">
-          {today.slice(0,2).map(({ fields }: any, index: any) => (
+          {data.slice(0, 2).map(({ fields }: any, index: any) => (
             <div key={index} className="upcoming-item">
               <strong> {fields["Hora Inicio"]} </strong>
               <span>{fields["Title"]} </span>
@@ -27,8 +23,10 @@ export const TodayComponents = () => {
           <p>Eventos</p>
         </div>
         <div className="task-wrapper">
-          {today.map((item: any, index: any) => (
-            <Task key={index} data={item} />
+          {data.map((item: any, index: any) => (
+            <div key={index} className="wrapper" data-aos="custom-fade-in">
+              <Task  data={item} />
+            </div>
           ))}
         </div>
       </div>

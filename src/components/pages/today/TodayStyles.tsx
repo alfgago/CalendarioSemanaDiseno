@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { COLORS, DEVICE } from "@/styles/variables"
 
 export const TodayStyles = styled.section`
+  padding-bottom:2.5rem;
   .current-day {
     padding: 0 0.5rem 2.69rem;
     border-bottom: solid 1px ${COLORS.black};
