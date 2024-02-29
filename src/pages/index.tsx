@@ -13,10 +13,9 @@ export default function Home() {
   )
 }
 
-export const getServerSideProps = async (context: any) => {
+export async function getStaticProps() {
   return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
+    props: {},
+    revalidate: 86400, 
   }
 }
