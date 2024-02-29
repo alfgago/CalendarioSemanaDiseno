@@ -10,7 +10,6 @@ export const CalendarStyles = styled.section`
     align-items: center;
     padding-bottom: 1rem
   }
-  .days-wrapper,
   .day {
     display: flex;
     flex-wrap: wrap; 

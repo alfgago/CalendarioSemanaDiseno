@@ -17,8 +17,6 @@ export const Exhibitors = ({ id }: any) => {
     fetchExhibitors
   )
 
-  if (!isLoading) console.log(data)
-
   return (
     <ExhibitorsStyles>
       {data &&

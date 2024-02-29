@@ -16,8 +16,6 @@ const items = [
 export const Header = () => {
   const router = useRouter();
 
-  console.log(router.pathname)
-
   return (
     <HeaderStyles>
       <div className="header-wrapper">

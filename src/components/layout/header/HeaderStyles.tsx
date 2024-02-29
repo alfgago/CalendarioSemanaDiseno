@@ -3,7 +3,10 @@ import styled from "styled-components"
 import { COLORS, DEVICE } from "@/styles/variables"
 
 export const HeaderStyles = styled.header`
+  display: flex;
   padding: 2.19rem 0.5rem 1rem;
+  height: 5.5rem;
+  align-items: center;
   .header-wrapper {
     display: flex;
     gap: 1.47rem;

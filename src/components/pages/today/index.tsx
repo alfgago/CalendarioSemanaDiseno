@@ -6,7 +6,6 @@ import { Task } from "@/components/task"
 
 export const TodayComponents = () => {
   const { today } = useContext(contextData) as any
-  console.log(today)
 
   return (
     <TodayStyles>
