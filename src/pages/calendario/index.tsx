@@ -1,6 +1,4 @@
-import { dehydrate } from "react-query/hydration"
-import {queryClient } from "@/utils"
-import { CalendarComponents, TodayComponents } from "@/components"
+import { CalendarComponents } from "@/components"
 
 export default function Calendario() {
   return (
@@ -8,10 +6,9 @@ export default function Calendario() {
   )
 }
 
-export const getServerSideProps = async (context: any) => {
+export async function getStaticProps() {
   return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
+    props: {},
+    revalidate: 86400, // Revalidar una vez al día
   }
 }

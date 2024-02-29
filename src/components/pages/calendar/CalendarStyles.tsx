@@ -30,6 +30,7 @@ export const CalendarStyles = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
+    text-transform: uppercase;
   }
   .swiper-button-next {
     right: 7rem;

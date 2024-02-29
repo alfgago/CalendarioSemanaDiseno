@@ -1,7 +1,7 @@
 import { fetchData } from "@/pages/api/data"
 import { useQuery } from "react-query"
 import { LocationStyles } from "./LocationStyles"
-import { get } from "http"
+import { useEffect } from "react"
 
 export const Location = ({ id, setLocationData }: any) => {
   const fetchLocation = () => {
@@ -13,11 +13,13 @@ export const Location = ({ id, setLocationData }: any) => {
 
   const { data, isLoading, error } = useQuery(["location", `Expositores/${id}`], fetchLocation)
 
-  if (isLoading) return <div>Loading...</div>;
+  useEffect(() => {
+    if (!isLoading && data) {
+      setLocationData(data);
+    }
+  }, [data, isLoading, setLocationData]);
 
-  if (!isLoading) {
-    setLocationData(data);
-  }
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <LocationStyles>

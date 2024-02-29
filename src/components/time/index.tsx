@@ -14,17 +14,17 @@ export const Time = ({ eventTime }: any) => {
 
   return (
     <TimeStyles>
-      <div className="day">
+      <div data-aos="custom-fade-in" className="day">
         <p>{data.day}</p>
       </div>
-      <div className="day-month">
+      <div data-aos="custom-fade-in" className="day-month">
         <h3>
           {
             data.dayOfMonth
           }
         </h3>
       </div>
-      <div className="month">
+      <div data-aos="custom-fade-in" className="month">
         <h4>{data.month}</h4> 
       </div>
     </TimeStyles>
