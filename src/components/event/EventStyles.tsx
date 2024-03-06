@@ -7,6 +7,7 @@ export const EventStyles = styled.section`
   padding: 0.81rem 0 1rem 1.06rem;
   width: 100%;
   min-height: 10rem;
+  
   .list {
     flex: 1;
   }

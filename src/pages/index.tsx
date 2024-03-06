@@ -5,12 +5,10 @@ import { useContext, useEffect, useState } from "react"
 import { contextData } from "@/context/context"
 
 export default function Home() {
-
   const { today, days } = useContext(contextData) as any
 
   const [events, setEvents] = useState([])
   const [nextDate, setNextDate] = useState()
-
 
 
   useEffect(() => {
@@ -35,6 +33,6 @@ export default function Home() {
 export async function getStaticProps() {
   return {
     props: {},
-    revalidate: 86400, 
+    revalidate: 3600, 
   }
 }

@@ -12,6 +12,9 @@ export const CalendarStyles = styled.section`
     border-top: 0.5px solid #000;
     padding-top: 1rem;
   }
+  .days-wrapper {
+    position: relative;
+  }
   .day {
     display: flex;
     flex-wrap: wrap;
@@ -37,5 +40,17 @@ export const CalendarStyles = styled.section`
   }
   .swiper-button-prev {
     left: 7rem;
+  }
+
+  .swiper-slide {
+    opacity: 0;
+    transition: opacity .5s ease;
+  }
+
+  .swiper-slide.swiper-slide-prev,
+  .swiper-slide.swiper-slide-active,
+  .swiper-slide.swiper-slide-next,
+  .swiper-slide.swiper-slide-next + .swiper-slide {
+    opacity: 1;
   }
 `

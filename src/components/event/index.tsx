@@ -5,7 +5,7 @@ import { EventStyles } from "./EventStyles"
 export const Event = ({ date, group, day }: any) => {
 
   return (
-    <EventStyles>
+    <EventStyles className="daily-events">
       <Link href={`calendario/${day}`}>
         <div className="time">
           <Time eventTime={date} />
