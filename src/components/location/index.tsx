@@ -4,14 +4,24 @@ import { LocationStyles } from "./LocationStyles"
 import { useEffect } from "react"
 
 export const Location = ({ id, setLocationData }: any) => {
-  const fetchLocation = () => {
-    const ids = Array.isArray(id) ? id : [id]
-    return Promise.all(
-      ids.map((singleId) => fetchData(`Expositores/${singleId}`))
-    )
+  if (!id) {
+    return <></>
   }
 
-  const { data, isLoading, error } = useQuery(["location", `Expositores/${id}`], fetchLocation)
+  const fetchLocation = async (id) => {
+    const ids = Array.isArray(id) ? id : [id];
+    return Promise.all(ids.map((singleId) => fetchData(`Expositores/${singleId}`)));
+  };
+
+
+  const { data, isLoading, error } = useQuery(
+    ["location", `Expositores/${id}`], 
+    () => fetchLocation(id), 
+    {
+      staleTime: 5 * 60 * 1000,
+      cacheTime: 15 * 60 * 1000,
+    }
+  );
 
   useEffect(() => {
     if (!isLoading && data) {
@@ -27,7 +37,10 @@ export const Location = ({ id, setLocationData }: any) => {
         data.map(({ fields }: any, index: any) => (
           <div key={index} className="item">
             <span>{fields.Name}</span>
-            <a target="_blank" href={fields["Map Link"]}> (Mapa)</a>
+            {
+              fields["Map Link"] &&
+              <a target="_blank" href={fields["Map Link"]}> (Mapa)</a>
+            }
           </div>
         ))}
     </LocationStyles>
