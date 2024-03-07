@@ -4,20 +4,17 @@ import { LocationStyles } from "./LocationStyles"
 import { useEffect } from "react"
 
 export const Location = ({ id, setLocationData }: any) => {
-  if (!id) {
-    return <></>
-  }
 
-  const fetchLocation = async (id) => {
+  const fetchLocation = async () => {
     const ids = Array.isArray(id) ? id : [id];
     return Promise.all(ids.map((singleId) => fetchData(`Expositores/${singleId}`)));
   };
 
-
   const { data, isLoading, error } = useQuery(
     ["location", `Expositores/${id}`], 
-    () => fetchLocation(id), 
+    () => fetchLocation(), 
     {
+      enabled: !!id,
       staleTime: 5 * 60 * 1000,
       cacheTime: 15 * 60 * 1000,
     }
@@ -29,6 +26,7 @@ export const Location = ({ id, setLocationData }: any) => {
     }
   }, [data, isLoading, setLocationData]);
 
+  if (!id) return <></>;
   if (isLoading) return <div>Loading...</div>;
 
   return (
