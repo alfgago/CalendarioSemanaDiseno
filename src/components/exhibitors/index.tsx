@@ -5,11 +5,6 @@ import Image from "next/image"
 import { Tooltip } from "react-tooltip"
 
 export const Exhibitors = ({ id }: any) => {
-
-  if (!id) {
-    return <></>
-  }
-
   const fetchExhibitors = () => {
     const ids = Array.isArray(id) ? id : [id]
     return Promise.all(
@@ -19,9 +14,13 @@ export const Exhibitors = ({ id }: any) => {
 
   const { data, isLoading, error } = useQuery(
     ["exhibitors", `Expositores/${id}`],
-    fetchExhibitors
+    fetchExhibitors,
+    { enabled: !!id } 
   )
 
+  if (!id) {
+    return <></>
+  }
 
   return (
     <ExhibitorsStyles>
