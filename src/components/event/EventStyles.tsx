@@ -65,6 +65,7 @@ export const EventStyles = styled.section`
       justify-content: center;
       span {
         display: inline-block;
+        font-size: 0.65rem;
       }
     }
   }
