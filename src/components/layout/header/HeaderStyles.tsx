@@ -13,7 +13,12 @@ export const HeaderStyles = styled.header`
   width: 100%;
   z-index: 1000;
   background: #ffff;
-  .header-wrapper {
+  .header-wrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .controls {
     display: flex;
     gap: 1rem;
     a {
