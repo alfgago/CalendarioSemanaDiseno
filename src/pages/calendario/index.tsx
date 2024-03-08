@@ -1,8 +1,14 @@
 import { CalendarComponents } from "@/components"
+import Head from "next/head"
 
 export default function Calendario() {
   return (
-    <CalendarComponents/>
+    <>
+      <Head>
+        <title>Calendario - Semana del diseño</title>
+      </Head>
+      <CalendarComponents />
+    </>
   )
 }
 
