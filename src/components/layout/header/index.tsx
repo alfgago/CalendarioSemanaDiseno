@@ -33,7 +33,7 @@ export const Header = () => {
           ))}
         </div>
         <div className="logo">
-          <Link href="https://www.semanadeldiseno.cr/">
+          <Link target="_blank" href="https://www.semanadeldiseno.cr/">
             <Image
               src="/user-default.png"
               width="30"
