@@ -13,17 +13,20 @@ export default class MyDocument extends Document {
       <Html lang="es">
         <Head>
           <script
+            async
             src={`https://www.googletagmanager.com/gtag/js?id=G-FCMPLFX5ST`}
           />
-          <script>
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js',new Date());
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js',new Date());
 
-              gtag('config','G-FCMPLFX5ST');
-            `}
-          </script>
+                gtag('config','G-FCMPLFX5ST');
+              `,
+            }}
+          />
         </Head>
         <body>
           <Main />
