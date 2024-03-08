@@ -31,7 +31,7 @@ export const Event = ({ events, slug }: any) => {
           })}
           {events.length > 3 && (
             <div className="chip mas">
-              <span>+</span>
+              <span>+ &nbsp;&nbsp;Ver más</span>
             </div>
           )}
         </div>

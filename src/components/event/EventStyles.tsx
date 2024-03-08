@@ -58,8 +58,8 @@ export const EventStyles = styled.section`
       background: #000;
       color: #fff;
       display: inline-flex;
-      width: 2rem;
-      height: 2rem;
+      width: 5rem;
+      height: 1.6rem;
       padding: 0;
       align-items: center;
       justify-content: center;
