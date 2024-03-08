@@ -23,7 +23,8 @@ export const Task = ({ data }: any) => {
     // Check if the task should be marked as active
     const startDate = moment(fields["Fecha"] + " " + fields["Hora Inicio"], "YYYY-MM-DD h:mm A");
     const endDate = moment(fields["Fecha Fin"] + " " + fields["Hora Fin"], "YYYY-MM-DD h:mm A");
-    const now = moment("2024-03-11 10:23 AM", "YYYY-MM-DD h:mm A");
+    // const now = moment("2024-03-11 10:23 AM", "YYYY-MM-DD h:mm A"); // Para probar los activos
+    const now = moment();
 
     if (now.isBetween(startDate, endDate)) {
       if (taskRef.current) {
