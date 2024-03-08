@@ -24,6 +24,8 @@ export const CalendarComponents = () => {
       target.swiper.slideToLoop(current.realIndex);
     }
   }
+
+  console.log(parseData)
   
   return (
     <CalendarStyles>
@@ -61,9 +63,11 @@ export const CalendarComponents = () => {
           {parseData.map(({ day, events }, dayIndex) => (
             <SwiperSlide key={'events-day-'+dayIndex}>
               <div id={day} className="day">
-                {events.map(({ date, hours }, index) => (
-                  <Event key={index} date={date} day={day} group={hours} />
-                ))}
+                <Event 
+                  key={dayIndex} 
+                  events={events}
+                  slug={day}  
+                />
               </div>
             </SwiperSlide>
           ))}
@@ -75,13 +79,17 @@ export const CalendarComponents = () => {
 
 const dayShortName = (dayName: string): string => {
   const daysMap: { [key: string]: string } = {
-    lunes: 'Lun',
-    martes: 'Mar',
-    miércoles: 'Mié',
-    jueves: 'Jue',
-    viernes: 'Vie',
-    sábado: 'Sáb',
-    domingo: 'Dom'
+    lunes: 'LUN',
+    martes: 'MAR',
+    miércoles: 'MIÉ',
+    jueves: 'JUE',
+    viernes: 'VIE',
+    sábado: 'SÁB',
+    domingo: 'DOM'
   };
-  return daysMap[dayName.toLowerCase()] || dayName;
+
+  const [day, number] = dayName.split('-');
+  const abbreviatedDay = daysMap[day.toLowerCase()] || day.toUpperCase();
+  
+  return number ? `${abbreviatedDay}-${number.trim()}` : abbreviatedDay;
 };

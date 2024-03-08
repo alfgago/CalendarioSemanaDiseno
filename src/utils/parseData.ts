@@ -7,98 +7,87 @@ export const parseEvents = (data: any) => {
   const { records } = data;
 
   let todayEvents: any[] = [];
-  let weekDaysEvents: { [key: string]: any[] } = {};
+  // Cambio: Utilizar un objeto para mantener eventos por fechas exactas
+  let datesEvents: { [dateKey: string]: any } = {};
 
   records.forEach((record: any) => {
     if (record.fields && Object.keys(record.fields).length > 0) {
       const startDate = moment(record.fields.Fecha);
       const endDate = record.fields['Fecha Fin'] ? moment(record.fields['Fecha Fin']) : startDate;
       const startTime = record.fields["Hora Inicio"];
- 
+
       let currentDate = startDate.clone();
       while (currentDate.diff(endDate, 'days') <= 0) {
-        const dayOfWeek = currentDate.format("dddd").toLowerCase();
         const monthDayYear = currentDate.format("YYYY-MM-DD");
 
         if (currentDate.isSame(moment(), "day")) {
-          todayEvents.push({ ...record, fields: { ...record.fields, Fecha: currentDate.format("YYYY-MM-DD") } });
+          todayEvents.push(record);
         }
 
-        if (!weekDaysEvents[dayOfWeek]) weekDaysEvents[dayOfWeek] = [];
-        let dayEvent = weekDaysEvents[dayOfWeek].find(item => item.date === monthDayYear);
+        // Clave única para cada día
+        const dateKey = currentDate.format("dddd-DD"); // Ejemplo: "lunes-11-marzo"
 
-        if (!dayEvent) {
-          dayEvent = { date: monthDayYear, events: {} };
-          weekDaysEvents[dayOfWeek].push(dayEvent);
+        if (!datesEvents[dateKey]) {
+          datesEvents[dateKey] = { date: monthDayYear, events: {} };
         }
 
-        if (!dayEvent.events[startTime]) dayEvent.events[startTime] = [];
-        dayEvent.events[startTime].push({ ...record, fields: { ...record.fields, Fecha: currentDate.format("YYYY-MM-DD") } });
+        if (!datesEvents[dateKey].events[startTime]) datesEvents[dateKey].events[startTime] = [];
+        datesEvents[dateKey].events[startTime].push(record);
 
         currentDate.add(1, 'days');
       }
     }
   });
 
-  // Ordenar los días de la semana y los eventos dentro de cada día
-  Object.keys(weekDaysEvents).forEach(day => {
-    weekDaysEvents[day].forEach(dayEvent => {
-      // Obtener las claves de horas (ejemplo: "8 AM", "2 PM", etc.) y ordenarlas
-      const sortedTimes = Object.keys(dayEvent.events).sort((a, b) => {
-        // Convertir las horas a formato 24 horas para comparación
-        const timeA = convertTo24HourFormat(a);
-        const timeB = convertTo24HourFormat(b);
-        return moment(timeA, "HH:mm").diff(moment(timeB, "HH:mm"));
-      });
+  // Ordenar los eventos por la clave de fecha y luego por hora
+  const orderedDatesKeys = Object.keys(datesEvents).sort((a, b) => moment(datesEvents[a].date, "YYYY-MM-DD").diff(moment(datesEvents[b].date, "YYYY-MM-DD")));
 
-      // Crear un nuevo objeto de eventos ordenados
-      const sortedEvents = {};
-      sortedTimes.forEach(time => {
-        sortedEvents[time] = dayEvent.events[time];
-      });
-
-      // Actualizar los eventos del día con los eventos ordenados
-      dayEvent.events = sortedEvents;
+  let orderedWeekDaysEvents = orderedDatesKeys.reduce((acc, key) => {
+    const dayEvents = datesEvents[key];
+    // Ordenar eventos por hora dentro de cada fecha
+    const sortedTimes = Object.keys(dayEvents.events).sort((a, b) => {
+      const timeA = convertTo24HourFormat(a);
+      const timeB = convertTo24HourFormat(b);
+      return moment(timeA, "HH:mm").diff(moment(timeB, "HH:mm"));
     });
-  });
 
+    const sortedEvents = {};
+    sortedTimes.forEach(time => {
+      sortedEvents[time] = dayEvents.events[time];
+    });
 
-  const orderedWeekDaysEvents = Object.keys(weekDaysEvents)
-    .sort((a, b) => {
-      // Convertir los nombres de los días a valores numéricos, tratando el domingo como 7 en vez de 0
-      const dayA = moment().day(a).day() || 7;
-      const dayB = moment().day(b).day() || 7;
-      return dayA - dayB;
-    })
-    .reduce((obj, key) => {
-      obj[key] = weekDaysEvents[key];
-      return obj;
-    }, {});
+    dayEvents.events = sortedEvents;
+    acc[key] = dayEvents;
+    return acc;
+  }, {});
 
   return {
     today: todayEvents,
     days: orderedWeekDaysEvents,
   };
 };
-export const prepareDaysForRendering = (days: any) => {
-  return Object.entries(days).map(([day, events]: any) => ({
-    day,
-    events: Object.entries(events).map(([monthDayYear, details]: any) => {
-      const correctDate = details.date
-      const hours = details.events
-        ? Object.entries(details.events).map(([hour, events]) => ({
-            hour,
-            events,
-          }))
-        : []
 
-      return {
-        date: correctDate,
-        hours,
-      }
-    }),
-  }))
-}
+export const prepareDaysForRendering = (days: any) => {
+  return Object.keys(days).map((day) => {
+    const { date, events } = days[day];
+    const eventEntries = Object.entries(events);
+
+    return {
+      day,
+      events: eventEntries.map(([hour, eventArray]) => {
+        return {
+          date,
+          group: {
+            hour,
+            events: eventArray,
+          },
+        };
+      }),
+    };
+  });
+};
+
+
 
 export const getEvents = ( day:any ) => {
   const allEvents = Object.keys(day.events).reduce((acc, hour) => {

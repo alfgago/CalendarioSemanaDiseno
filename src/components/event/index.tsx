@@ -2,44 +2,37 @@ import Link from "next/link"
 import { Time } from ".."
 import { EventStyles } from "./EventStyles"
 
-export const Event = ({ date, group, day }: any) => {
-  let totalEvents = 0;
-
+export const Event = ({ events, slug }: any) => {
+  const { date } = events[0]
   return (
     <EventStyles className="daily-events">
-      <Link href={`calendario/${day}`}>
+      <Link href={`calendario/${slug}`}>
         <div className="time">
           <Time eventTime={date} />
         </div>
         <div className="list">
-          {group.map(({ events, hour}:any, index:any) => {
-              if (totalEvents < 3) {
-                totalEvents++;
-                return (
-                    <div key={index} className="group">
-                      <div className="hour">
-                        <span>
-                          { hour }
-                        </span>
+          {events.slice(0, 3).map(({ group }: any, index: any) => {
+            return (
+              <div key={index} className="group">
+                <div className="hour">
+                  <span>{group.hour}</span>
+                </div>
+                {group.events
+                  .slice(0, 2)
+                  .map(({ fields }: any, innerIndex: any) => {
+                    return (
+                      <div key={innerIndex} className="chip">
+                        <span>{fields.Title}</span>
                       </div>
-                      {events.map(({ fields}:any, index:any) => (
-                        <div key={index} className="chip">
-                          <span>
-                            {fields.Title}
-                          </span>
-                        </div>
-                      ))}
-                      {totalEvents == 3 && <div key={index} className="chip mas">
-                          <span>
-                            +
-                          </span>
-                        </div>}
-                    </div>
-                  )
-              }else{
-                return <></>
-              }
-            }
+                    )
+                  })}
+              </div>
+            )
+          })}
+          {events.length > 3 && (
+            <div className="chip mas">
+              <span>+</span>
+            </div>
           )}
         </div>
       </Link>
