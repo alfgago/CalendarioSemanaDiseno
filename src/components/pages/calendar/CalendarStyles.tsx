@@ -4,13 +4,11 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const CalendarStyles = styled.section`
   padding: 0 0.5rem;
+  color: #000;
   .selector {
-    height: 4.5rem;
+    height: 4rem;
     display: flex;
     align-items: center;
-    padding-bottom: 1rem;
-    border-top: 0.5px solid #000;
-    padding-top: 1rem;
   }
   .days-wrapper {
     position: relative;
@@ -47,10 +45,13 @@ export const CalendarStyles = styled.section`
     transition: opacity .5s ease;
   }
 
-  .swiper-slide.swiper-slide-prev,
+  .selector .swiper-slide.swiper-slide-prev,
   .swiper-slide.swiper-slide-active,
-  .swiper-slide.swiper-slide-next,
-  .swiper-slide.swiper-slide-next + .swiper-slide {
+  .swiper-slide.swiper-slide-next {
     opacity: 1;
+  }
+
+  .selector .swiper-slide.swiper-slide-active {
+      color: #FF501B;
   }
 `

@@ -4,8 +4,8 @@ import { COLORS, DEVICE } from "@/styles/variables"
 
 export const HeaderStyles = styled.header`
   display: flex;
-  padding: 2.19rem 0.5rem 1.5rem;
-  height: 5.5rem;
+  padding: 0.75rem 0.5rem;
+  height: auto;
   align-items: center;
   position: fixed;
   top: 0;
@@ -15,7 +15,7 @@ export const HeaderStyles = styled.header`
   background: #ffff;
   .header-wrapper {
     display: flex;
-    gap: 1.47rem;
+    gap: 1rem;
     a {
       display: inline-flex;
       padding: 0.25rem 2.0625rem;

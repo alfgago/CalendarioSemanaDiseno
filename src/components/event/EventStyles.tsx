@@ -7,6 +7,7 @@ export const EventStyles = styled.section`
   padding: 0.81rem 0 1rem 1.06rem;
   width: 100%;
   min-height: 10rem;
+  color: #000;
   
   .list {
     flex: 1;
@@ -18,6 +19,7 @@ export const EventStyles = styled.section`
     gap: 2rem;
     height: 100%;
     text-decoration: none !important;
+    color: #000;
   }
   .group {
     display: flex;
@@ -41,11 +43,28 @@ export const EventStyles = styled.section`
       gap: 0.625rem;
       border-radius: 6.25rem;
       background: #E2E2E2;
+      color: #000;
       width: 93%;
-      p {
+      span {
+        display: block;
         font-size: 0.75rem;
-        font-weight: 300;
+        font-weight: 400;
         line-height: 1;
+        color: inherit;
+      }
+
+      &.mas {    
+        background: #000;
+        color: #fff;
+        display: inline-flex;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+        span {
+          display: inline-block;
+        }
       }
     }
   }

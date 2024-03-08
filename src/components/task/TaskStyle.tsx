@@ -7,6 +7,13 @@ export const TaskStyles = styled.section`
   width: 100%;
   .task {
     padding: 1rem 1.06rem 1.06rem 1rem;
+    background: #fff;
+    color: #000;
+
+    &.active {
+      background: #111;
+      color: #fff;
+    }
 
     .data{
       display:flex;
@@ -40,6 +47,7 @@ export const TaskStyles = styled.section`
         flex: 1;
         display: flex;
         justify-content: flex-end;
+        white-space: nowrap;
       }
     }
   }

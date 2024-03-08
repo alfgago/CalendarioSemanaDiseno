@@ -37,7 +37,7 @@ export const Location = ({ id, setLocationData }: any) => {
             <span>{fields.Name}</span>
             {
               fields["Map Link"] &&
-              <a target="_blank" href={fields["Map Link"]}> (Mapa)</a>
+              <a target="_blank" href={fields["Map Link"]}> Ver en Mapa</a>
             }
           </div>
         ))}

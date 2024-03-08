@@ -8,11 +8,16 @@ export const TodayComponents = ({
   date = null,
   nextDate = null,
 }: any) => {
+
+  useEffect(() => {
+    //@ts-ignore
+    window.scrolled = false
+  }, []);
+
   return (
     <TodayStyles>
       <div className="current-day">
         <div className="time">
-          {nextDate && <span>Proxima fecha:</span>}
           <Time eventTime={date || nextDate} />
         </div>
         <div className="upcoming-events">

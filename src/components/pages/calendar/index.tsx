@@ -54,7 +54,7 @@ export const CalendarComponents = () => {
           spaceBetween={30}
           loop={true}
           modules={[Pagination, Controller]}
-          style={{ height: "calc(100vh - 10rem)" }}
+          style={{ height: "calc(100vh - 7.5rem)" }}
           ref={verticalSwiperRef} 
           onSlideChange={(swiper) => syncSwipers(swiper, horizontalSwiperRef.current)}
         >

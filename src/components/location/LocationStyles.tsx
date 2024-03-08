@@ -9,8 +9,9 @@ export const LocationStyles = styled.div`
   .item {
     width: 85%;
     a {
-      text-decoration: none;
-      color: #000;
+      display: table;
+      text-decoration: underline;
+      color: inherit;
       font-size: 0.875rem;
       font-style: normal;
       font-weight: 300;
