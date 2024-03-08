@@ -18,11 +18,10 @@ const nextConfig = {
     includePaths: [path.join(__dirname, "styles")],
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'v5.airtableusercontent.com',
-      }
+    domains: [
+      "localhost",
+      "v5.airtableusercontent.com",
+      "calendario.semanadeldiseno.cr",
     ],
     formats: ["image/webp"],
   },
