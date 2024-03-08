@@ -24,8 +24,6 @@ export const CalendarComponents = () => {
       target.swiper.slideToLoop(current.realIndex);
     }
   }
-
-  console.log(parseData)
   
   return (
     <CalendarStyles>

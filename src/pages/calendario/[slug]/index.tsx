@@ -7,7 +7,7 @@ import { TodayComponents } from "@/components"
 export default function Child({ slug }: any) {
   
   const { days } = useContext(contextData) as any;
-  const selected = days[slug]?.[0];
+  const selected = days[slug];
 
   if (!selected || !selected.events) {
     return <div>No hay eventos disponibles</div>;
