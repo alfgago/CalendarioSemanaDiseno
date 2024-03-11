@@ -3,7 +3,7 @@ import { QueryClient } from 'react-query';
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000, // 60 segundos por defecto en cache 
+      staleTime: 7200 * 1000, // 60 segundos por defecto en cache 
     },
   },
 });

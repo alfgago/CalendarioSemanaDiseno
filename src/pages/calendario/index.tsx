@@ -15,6 +15,6 @@ export default function Calendario() {
 export async function getStaticProps() {
   return {
     props: {},
-    revalidate: 3600, // Revalida cada 1 hora
+    revalidate: 7200, // Revalida cada 1 hora
   }
 }

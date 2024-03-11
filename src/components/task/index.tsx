@@ -20,9 +20,13 @@ export const Task = ({ data }: any) => {
   useEffect(() => {
     // Set the timezone to Costa Rica
     momentTimezone.tz.setDefault('America/Costa_Rica');
+
+    const horaInicio = fields["Hora Inicio"].replace('MD', 'PM')
+    const horaFin = fields["Hora Inicio"].replace('MD', 'PM')
+
     // Check if the task should be marked as active
-    const startDate = moment(fields["Fecha"] + " " + fields["Hora Inicio"], "YYYY-MM-DD h:mm A");
-    const endDate = moment(fields["Fecha Fin"] + " " + fields["Hora Fin"], "YYYY-MM-DD h:mm A");
+    const startDate = moment(fields["Fecha"] + " " + horaInicio, "YYYY-MM-DD h:mm A");
+    const endDate = moment(fields["Fecha Fin"] + " " + horaFin, "YYYY-MM-DD h:mm A");
     // const now = moment("2024-03-11 10:23 AM", "YYYY-MM-DD h:mm A"); // Para probar los activos
     const now = moment();
 
