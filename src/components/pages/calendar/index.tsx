@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { contextData } from "@/context/context";
 import { CalendarStyles } from "./CalendarStyles";
 import { prepareDaysForRendering } from "@/utils/parseData";
@@ -10,13 +10,26 @@ import "swiper/css/pagination";
 import 'swiper/css/navigation'; 
 
 import { Pagination, Controller, Navigation } from "swiper/modules"
+import moment from "moment";
 
 export const CalendarComponents = () => {
   const { days } = useContext(contextData) as any;
   const parseData = prepareDaysForRendering(days);
+
   const horizontalSwiperRef = useRef(null);
   const verticalSwiperRef = useRef(null);
 
+  // Obtener el día actual en la zona horaria de Costa Rica
+  const currentDate = moment.tz("America/Costa_Rica").format("dddd-DD");
+  
+  // Encontrar el índice del día actual en parseData
+  let currentIndex = parseData.findIndex(item => item.day === currentDate);
+  if (currentIndex === -1) {
+    const todayIndex = moment.tz("America/Costa_Rica").format("DD");
+    currentIndex = parseData.findIndex(item => parseInt(item.day.split("-")[1]) >= parseInt(todayIndex));
+  }
+
+  // Función para sincronizar los Swipers
   const syncSwipers = (current, target) => {
     if (current && target && target.swiper 
       && target?.swiper?.realIndex !== current.realIndex
@@ -24,7 +37,7 @@ export const CalendarComponents = () => {
       target.swiper.slideToLoop(current.realIndex);
     }
   }
-  
+
   return (
     <CalendarStyles>
       <div className="selector">
@@ -36,6 +49,7 @@ export const CalendarComponents = () => {
           centeredSlides={true}
           onSlideChange={(swiper) => syncSwipers(swiper, verticalSwiperRef.current)}
           ref={horizontalSwiperRef} 
+          initialSlide={currentIndex} // Establecer el índice activo
         >
           {parseData.map(({ day }, index) => (
             <SwiperSlide key={'events-'+index}>
@@ -56,6 +70,7 @@ export const CalendarComponents = () => {
           modules={[Pagination, Controller]}
           style={{ height: "calc(100vh - 7.5rem)" }}
           ref={verticalSwiperRef} 
+          initialSlide={currentIndex} // Establecer el índice activo
           onSlideChange={(swiper) => syncSwipers(swiper, horizontalSwiperRef.current)}
         >
           {parseData.map(({ day, events }, dayIndex) => (
