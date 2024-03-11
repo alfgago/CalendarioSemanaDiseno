@@ -38,6 +38,6 @@ export default function Home() {
 export async function getStaticProps() {
   return {
     props: {},
-    revalidate: 86400,
+    revalidate: 3600, // Revalida cada 1 hora
   }
 }
