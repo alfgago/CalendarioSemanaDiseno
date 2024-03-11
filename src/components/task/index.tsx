@@ -30,7 +30,13 @@ export const Task = ({ data }: any) => {
     // const now = moment("2024-03-11 10:23 AM", "YYYY-MM-DD h:mm A"); // Para probar los activos
     const now = moment();
 
-    if (now.isBetween(startDate, endDate)) {
+    const startDateString = moment().format("YYYY-MM-DD") + " " + fields["Hora Inicio"];
+    const endDateString = moment().format("YYYY-MM-DD") + " " + fields["Hora Fin"];
+    const todayDateStart = parseTimeString(startDateString);
+    const todayDateEnd = parseTimeString(endDateString);
+
+    if (now.isBetween(startDate, endDate) && now.isBetween(todayDateStart, todayDateEnd)) {
+      alert(startDate)
       if (taskRef.current) {
         taskRef.current.classList.add('active');
 
@@ -44,6 +50,12 @@ export const Task = ({ data }: any) => {
       }
     }
   }, []);
+
+  const parseTimeString = (timeString: string): moment.Moment => {
+    // Replace "MD" with "PM" for noon
+    const adjustedTimeString = timeString.replace(/12 MD/, '12 PM');
+    return moment(adjustedTimeString, "YYYY-MM-DD h:mm A");
+  };
 
   const handleDownload = async () => {
     try {
