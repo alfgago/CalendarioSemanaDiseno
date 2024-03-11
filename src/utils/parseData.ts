@@ -39,6 +39,13 @@ export const parseEvents = (data: any) => {
     }
   });
 
+  // Ordenar eventos de hoy por hora de inicio
+  todayEvents.sort((a, b) => {
+    const timeA = convertTo24HourFormat(a.fields["Hora Inicio"]);
+    const timeB = convertTo24HourFormat(b.fields["Hora Inicio"]);
+    return moment(timeA, "HH:mm").diff(moment(timeB, "HH:mm"));
+  });
+
   // Ordenar los eventos por la clave de fecha y luego por hora
   const orderedDatesKeys = Object.keys(datesEvents).sort((a, b) => moment(datesEvents[a].date, "YYYY-MM-DD").diff(moment(datesEvents[b].date, "YYYY-MM-DD")));
 
