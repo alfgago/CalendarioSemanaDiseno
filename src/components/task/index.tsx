@@ -36,7 +36,6 @@ export const Task = ({ data }: any) => {
     const todayDateEnd = parseTimeString(endDateString);
 
     if (now.isBetween(startDate, endDate) && now.isBetween(todayDateStart, todayDateEnd)) {
-      alert(startDate)
       if (taskRef.current) {
         taskRef.current.classList.add('active');
 
